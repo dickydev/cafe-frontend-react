@@ -1,49 +1,38 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CafeReservation from "./components/CafeReservation";
-import Navbar from "./components/Navbar";
-import ViewMenu from "./components/ViewMenu";
-import Menu from "./pages/Menu";
-import About from "./components/About";
-import Cart from "./components/Create";
-import Layout from "../Layout"; 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./auth/AuthContext";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
-// Temporary placeholder About & Cart pages
-{/*function Cart() {
-  return (
-    <div className="min-h-screen flex items-center justify-center font-serif text-2xl">
-      🛒 Your Cart is Empty
-    </div>
-  );
-}*/}
+import Layout from "./Layout";
+import Home from "./pages/Home";
+import Menu from "./pages/Menu";
+import About from "./pages/About";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import AdminProducts from "./pages/AdminProducts";
 
 export default function App() {
   return (
-    <Router>
-      <Layout>
-      {/* Top Navbar */}
-      <Navbar />
-      {/* Left Floating Menu Button */}
-      <ViewMenu />
+    <BrowserRouter>
+      <AuthProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
 
-      <Routes>
-        {/* Homepage / Reservation */}
-        <Route
-          path="/"
-          element={
-            <div className="min-h-screen flex items-center justify-center">
-              <CafeReservation />
-            </div>
-          }
-        />
-        {/* Menu Page */}
-        <Route path="/menu" element={<Menu />} />
-        {/* About / Contact Page */}
-        <Route path="/about" element={<About />} />
-        {/* Cart Page */}
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-      </Layout>
-    </Router>
+            <Route
+              path="/admin/products"
+              element={
+                <ProtectedRoute roles={["admin"]}>
+                  <AdminProducts />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Layout>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
