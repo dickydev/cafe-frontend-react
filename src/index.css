@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-serif bg-cover bg-center bg-fixed;
+  background-image: url("/background.jpg"); /* Place background.jpeg in public folder */
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s infinite ease-in-out;
+}
+
+/* Ensure proper scaling on all devices */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #fafafa;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* Make images and stickers responsive */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive text scaling */
+h1, h2, h3, h4, h5, h6 {
+  word-wrap: break-word;
+  line-height: 1.2;
+}
+
+/* Make form inputs fit small screens */
+input, button, select, textarea {
+  max-width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+/* Mobile-friendly containers */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Media query fallbacks */
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .flex-row {
+    flex-direction: column !important;
+  }
+
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  .p-6 {
+    padding: 1rem !important;
+  }
+}
+
