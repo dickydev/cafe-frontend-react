@@ -1,7 +1,7 @@
-const BASE_URL = "http://localhost:5500/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5500/api/v1";
 
 export async function apiFetch(path, options = {}) {
-  const res = await fetch(`${BASE_URL}${path}`, {
+  const response = await fetch(`${BASE_URL}${path}`, {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -10,7 +10,11 @@ export async function apiFetch(path, options = {}) {
     ...options,
   });
 
-  const data = await res.json();
-  if (!res.ok) throw data;
+  const contentType = response.headers.get("content-type") || "";
+  const data = contentType.includes("application/json")
+    ? await response.json()
+    : { message: await response.text() };
+
+  if (!response.ok) throw data;
   return data;
 }

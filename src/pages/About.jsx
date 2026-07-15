@@ -1,5 +1,12 @@
 import React from "react";
-import AboutComponent from "../components/About";
+import AboutSection from "../components/AboutSection";
+import ContactSection from "../components/ContactSection";
+
 export default function About() {
-  return <AboutComponent />;
+  return (
+    <>
+      <AboutSection standalone />
+      <ContactSection />
+    </>
+  );
 }

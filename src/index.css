@@ -2,81 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply font-serif bg-cover bg-center bg-fixed;
-  background-image: url("/background.jpg"); /* Place background.jpeg in public folder */
+:root {
+  color: #1c1917;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --font-display: Georgia, "Times New Roman", serif;
 }
 
-@keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-bounce-slow {
-  animation: bounce-slow 4s infinite ease-in-out;
-}
-
-/* Ensure proper scaling on all devices */
 html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  padding: 0;
+  min-width: 320px;
   min-height: 100vh;
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-  background-color: #fafafa;
-  overflow-x: hidden; /* prevent horizontal scroll */
+  overflow-x: hidden;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #ffffff;
 }
 
-/* Make images and stickers responsive */
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  outline-offset: 4px;
+}
+
 img {
-  max-width: 100%;
-  height: auto;
   display: block;
-}
-
-/* Responsive text scaling */
-h1, h2, h3, h4, h5, h6 {
-  word-wrap: break-word;
-  line-height: 1.2;
-}
-
-/* Make form inputs fit small screens */
-input, button, select, textarea {
   max-width: 100%;
-  font-size: 1rem;
-  padding: 0.5rem;
 }
 
-/* Mobile-friendly containers */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+::selection {
+  color: #1c1917;
+  background: #fcd34d;
 }
 
-/* Media query fallbacks */
-@media (max-width: 768px) {
-  .grid-cols-2 {
-    grid-template-columns: 1fr !important;
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
-  .flex-row {
-    flex-direction: column !important;
+  .section-space {
+    @apply py-20 sm:py-24 lg:py-28;
   }
 
-  .text-lg {
-    font-size: 1rem !important;
+  .font-display {
+    font-family: var(--font-display);
   }
 
-  .p-6 {
-    padding: 1rem !important;
+  .button-primary {
+    @apply inline-flex min-h-12 items-center gap-2 rounded-full bg-amber-300 px-5 py-3 text-sm font-bold text-stone-950 shadow-lg shadow-amber-300/10 transition hover:-translate-y-0.5 hover:bg-amber-200 hover:shadow-xl active:translate-y-0;
+  }
+
+  .button-dark {
+    @apply inline-flex min-h-12 items-center gap-2 rounded-full bg-stone-950 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-stone-800;
+  }
+
+  .button-secondary-dark {
+    @apply inline-flex min-h-12 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15;
+  }
+
+  .button-small {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-stone-950 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-stone-800;
+  }
+
+  .form-label {
+    @apply mb-2 block text-xs font-bold uppercase tracking-wider text-stone-500;
+  }
+
+  .form-control {
+    @apply min-h-11 w-full rounded-xl border border-stone-200 bg-white px-3.5 py-2.5 text-sm text-stone-950 outline-none transition placeholder:text-stone-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-200/50;
   }
 }
 
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
