@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarDays, Coffee, Menu, X } from "lucide-react";
+import { Bot, CalendarDays, Coffee, Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const links = [
+  { id: "ai-tavern", label: "AI Tavern", icon: Bot },
   { id: "menu", label: "Menu" },
   { id: "combo", label: "Build a Combo" },
   { id: "experience", label: "Activities" },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const solidNav = location.pathname !== "/" || scrolled || open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);
@@ -56,14 +58,14 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-[80] px-3 pt-3 sm:px-5 sm:pt-4">
       <motion.nav
         animate={{
-          backgroundColor: scrolled || open ? "rgba(255,255,255,0.94)" : "rgba(255,255,255,0.08)",
-          color: scrolled || open ? "#1c1917" : "#ffffff",
-          borderColor: scrolled || open ? "rgba(231,229,228,1)" : "rgba(255,255,255,0.14)",
+          backgroundColor: solidNav ? "rgba(255,255,255,0.94)" : "rgba(255,255,255,0.08)",
+          color: solidNav ? "#1c1917" : "#ffffff",
+          borderColor: solidNav ? "rgba(231,229,228,1)" : "rgba(255,255,255,0.14)",
         }}
         className="mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 shadow-lg shadow-black/5 backdrop-blur-xl sm:px-5"
       >
         <button onClick={() => goToSection("home")} className="flex items-center gap-2 font-display text-lg font-semibold">
-          <span className={`flex h-9 w-9 items-center justify-center rounded-full ${scrolled || open ? "bg-stone-950 text-amber-300" : "bg-white text-stone-950"}`}>
+          <span className={`flex h-9 w-9 items-center justify-center rounded-full ${solidNav ? "bg-stone-950 text-amber-300" : "bg-white text-stone-950"}`}>
             <Coffee size={18} />
           </span>
           <span>Cafe Lab</span>
@@ -74,18 +76,18 @@ export default function Navbar() {
             <button
               key={link.id}
               onClick={() => goToSection(link.id)}
-              className={`rounded-full px-3.5 py-2 text-sm font-semibold transition ${activeSection === link.id ? (scrolled ? "bg-stone-100 text-stone-950" : "bg-white/15 text-white") : "opacity-75 hover:opacity-100"}`}
+              className={`rounded-full px-3.5 py-2 text-sm font-semibold transition ${activeSection === link.id ? (solidNav ? "bg-stone-100 text-stone-950" : "bg-white/15 text-white") : "opacity-75 hover:opacity-100"}`}
             >
-              {link.label}
+              {link.icon ? <link.icon size={14} className="mr-1.5 inline text-amber-400" /> : null}{link.label}
             </button>
           ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <button onClick={() => goToSection("reservation")} className={`hidden items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold sm:flex ${scrolled || open ? "bg-stone-950 text-white" : "bg-amber-300 text-stone-950"}`}>
+          <button onClick={() => goToSection("reservation")} className={`hidden items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold sm:flex ${solidNav ? "bg-stone-950 text-white" : "bg-amber-300 text-stone-950"}`}>
             <CalendarDays size={16} /> Reserve
           </button>
-          <button onClick={() => setOpen((value) => !value)} aria-label="Toggle navigation" className={`rounded-full p-2.5 lg:hidden ${scrolled || open ? "bg-stone-100" : "bg-white/10"}`}>
+          <button onClick={() => setOpen((value) => !value)} aria-label="Toggle navigation" className={`rounded-full p-2.5 lg:hidden ${solidNav ? "bg-stone-100" : "bg-white/10"}`}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>

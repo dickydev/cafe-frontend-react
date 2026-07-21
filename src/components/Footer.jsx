@@ -18,7 +18,7 @@ export default function Footer() {
           Cafe Lab
         </button>
         <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold text-stone-500">
-          {["menu", "combo", "experience", "reservation", "about", "contact"].map((item) => (
+          {["ai-tavern", "menu", "combo", "experience", "reservation", "about", "contact"].map((item) => (
             <button key={item} onClick={() => goTo(item)} className="capitalize hover:text-stone-950">{item}</button>
           ))}
         </div>

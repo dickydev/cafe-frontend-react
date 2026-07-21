@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, CalendarDays, Coffee, Sparkles } from "lucide-react";
+import { ArrowDown, Bot, CalendarDays, Coffee, Sparkles } from "lucide-react";
+import QRMenuAccess from "./QRMenuAccess";
 
 const stats = [
   ["4.9/5", "Loved by our guests"],
@@ -9,10 +10,18 @@ const stats = [
 ];
 
 export default function HeroSection({ onReserve }) {
-  const scrollToMenu = () => document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToMenu = () =>
+    document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToAi = () =>
+    document
+      .getElementById("ai-tavern")
+      ?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section id="home" className="relative isolate min-h-screen overflow-hidden bg-stone-950 text-white">
+    <section
+      id="home"
+      className="relative isolate min-h-screen overflow-hidden bg-stone-950 text-white"
+    >
       <img
         src="/cafe1.jpg"
         alt="Warm Cafe Lab interior"
@@ -30,7 +39,7 @@ export default function HeroSection({ onReserve }) {
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm backdrop-blur-xl"
           >
             <Sparkles size={16} className="text-amber-300" />
-            More than coffee — plan your whole cafe experience
+            Now powered by Arka, your AI Tavern Master
           </motion.div>
 
           <motion.h1
@@ -49,8 +58,9 @@ export default function HeroSection({ onReserve }) {
             transition={{ delay: 0.24, duration: 0.65 }}
             className="mt-7 max-w-2xl text-base leading-8 text-stone-200 sm:text-xl"
           >
-            Choose your table, discover a menu made for every mood, build a personal combo,
-            and add UNO, Jenga, Chess, or Ludo to your visit.
+            Choose your table, build a personal combo, play tabletop games, and
+            let an AI Tavern Master recommend menus, generate quests, host
+            trivia, and turn every visit into a story.
           </motion.p>
 
           <motion.div
@@ -62,9 +72,10 @@ export default function HeroSection({ onReserve }) {
             <button onClick={onReserve} className="button-primary">
               <CalendarDays size={18} /> Reserve a table
             </button>
-            <button onClick={scrollToMenu} className="button-secondary-dark">
-              <Coffee size={18} /> Explore menu
+            <button onClick={scrollToAi} className="button-secondary-dark">
+              <Bot size={18} /> Meet AI Tavern Master
             </button>
+            <QRMenuAccess />
           </motion.div>
 
           <motion.div
@@ -76,7 +87,9 @@ export default function HeroSection({ onReserve }) {
             {stats.map(([value, label]) => (
               <div key={label} className="px-0 py-4 first:pl-0 sm:px-5">
                 <p className="text-lg font-semibold text-white">{value}</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-stone-400">{label}</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-stone-400">
+                  {label}
+                </p>
               </div>
             ))}
           </motion.div>
